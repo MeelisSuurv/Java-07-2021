@@ -1,7 +1,6 @@
 package com.company;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 //nime muutmiseks sõna aktiivseks, parem klõps ja refactor rename
@@ -11,15 +10,17 @@ public class Main {
     public static void main(String[] args) {
 //  klass on justkui andmemudel, mis kohustab mingeid väärtusi vastu võtma
         // instanci tekitamiseks pean kõik väärtused lisama õigete väärtustega
-        Animal kass = new Animal(70, 2, "Miisu", false, false, AnimalType.KASS);
-        Animal koer = new Animal(80, 0, "Muri", false, false, AnimalType.KOER);
-        Animal tiiger = new Animal(140, 5, "King", false, false, AnimalType.TIIGER);
-        Animal rott = new Animal(10, 1, "Sipsu", false, false, AnimalType.ROTT);
+        Mammal kass = new Mammal(70, 2, "Miisu", false, false);
+        Mammal koer = new Mammal(80, 0, "Muri", false, false);
+        Mammal tiiger = new Mammal(140, 5, "King", false, false);
+        Mammal rott = new Mammal(10, 1, "Sipsu", false, false);
 
-        rott.addChild(new Animal(2, 0, "N/A", true, false));
-        kass.addChild(new Animal(20, 0, "N/A", true, false));
-        koer.addChild(new Animal(50, 0, "N/A", true, false));
-        tiiger.addChild(new Animal(100, 0, "N/A", true, false));
+        rott.printOneChild();
+
+        rott.addChild(new Mammal(2, 0, "SipsiII", true, false));
+        kass.addChild(new Mammal(20, 0, "N/A", true, false));
+        koer.addChild(new Mammal(50, 0, "N/A", true, false));
+        tiiger.addChild(new Mammal(100, 0, "N/A", true, false));
 
         koer.changeToSold();
         kass.increaseAge();
@@ -30,10 +31,10 @@ public class Main {
 
         //private kõik muutujad et keegi ligi ei saaks
         //kass.price = 123445;
-        int totalprice = kass.Price + koer.Price;
+        int totalprice = kass.getPrice() + koer.getPrice();
         //System.out.println("Ostja koguhind oli " + totalPrice);
 
-        rott.changePrice(20);
+        rott.setPrice(20);
 
         System.out.println(kass);
         System.out.println(koer);
@@ -52,28 +53,24 @@ public class Main {
         System.out.println(tihane);
         System.out.println(leevike);
 //pean importima listi ja arraylisti java.utilist
-        List<Animal> koikLoomad = new ArrayList<Animal>();
+        List<Animal> koikLoomad = new ArrayList<>();
         koikLoomad.add(kass);
         koikLoomad.add(koer);
         koikLoomad.add(tiiger);
         koikLoomad.add(rott);
-
-        List<Bird> koikLinnud = new ArrayList<Bird>();
-        koikLinnud.add(papagoi);
-        koikLinnud.add(ookull);
-        koikLinnud.add(tihane);
-        koikLinnud.add(leevike);
+        koikLoomad.add(papagoi);
+        koikLoomad.add(ookull);
+        koikLoomad.add(tihane);
+        koikLoomad.add(leevike);
 
         // foreach + enter
         int koguSumma = 0;
-        for (Animal loom:koikLoomad) {
+        for (Animal loom : koikLoomad) {
             koguSumma = koguSumma + loom.getPrice();
 // 0 = 0 + 70 (kass.getPrice())
             // = 70 + 80 (kassgetPrice())
         }
-        for (Bird lind:koikLinnud) {
-            koguSumma += lind.getPrice();
-        }
-        System.out.println("Kõikide loomade ostmiseks kogusumma "  + koguSumma);
+
+        System.out.println("Kõikide loomade ostmiseks kogusumma " + koguSumma);
     }
 }
